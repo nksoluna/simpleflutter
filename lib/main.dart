@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Foodmenu.dart';
-
+import 'MoneyBox.dart';
 void main() {
   runApp(LabelOrtext());
 }
@@ -42,121 +42,13 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.fromLTRB(10,10,10, 0), // space from top and side
           child: Column(
             children: [
-              Container(
-                  padding: const EdgeInsets.all(40.0), // you can use s
-                  decoration: BoxDecoration(
-                      color: Colors.orange,
-                      borderRadius: BorderRadius.circular(10)),
-                  height: 150,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "ยอดคงเหลือ",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Expanded(
-                        child: Text(
-                          " 15000 บาท",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign
-                              .right, // outside style and for aligning text
-                        ),
-                      )
-                    ],
-                  )),
-                  SizedBox(height: 10),
-                 Container(
-                    padding: const EdgeInsets.all(40.0),
-                    decoration: BoxDecoration(
-                        color: Colors.greenAccent[400],
-                        borderRadius: BorderRadius.circular(10)),
-                    height: 120,
-                    child: Row(
-                      children: [
-                        Text(
-                          "รายรับ",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Expanded(
-                          child: Text(
-                            " 25000 บาท",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.right,
-                          ),
-                        )
-                      ],
-                    )),
-              
-            SizedBox(height: 10),
-                Container(
-                    padding: const EdgeInsets.all(40.0),
-                    decoration: BoxDecoration(
-                        color: Colors.redAccent[700],
-                        borderRadius: BorderRadius.circular(10)),
-                    height: 120,
-                    child: Row(
-                      children: [
-                        Text(
-                          "ค้างชำระ",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Expanded(
-                          child: Text(
-                            " 0 บาท",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.right,
-                          ),
-                        )
-                      ],
-                    )),
-              SizedBox(height: 10), //define transparent box to cut space from container
-                Container(
-                    padding: const EdgeInsets.all(40.0),
-                    decoration: BoxDecoration(
-                        color: Colors.deepOrangeAccent[400],
-                        borderRadius: BorderRadius.circular(10)),
-                    height: 120,
-                    child: Row(
-                      children: [
-                        Text(
-                          "รายจ่าย",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Expanded(
-                          child: Text(
-                            " 10000 บาท",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.right,
-                          ),
-                        )
-                      ],
-                    )),
-              
+              MoneyBox("ยอดคงเหลือ",15000 , Colors.orange, 150) ,
+              SizedBox(height : 10) ,
+              MoneyBox("รายรับ", 25000, Colors.greenAccent[400] , 120) ,
+              SizedBox(height : 10) ,
+              MoneyBox("รายจ่าย", 10000, Colors.redAccent[700] , 120) ,
+              SizedBox(height : 10) ,
+              MoneyBox("ค้างชำระ", 0, Colors.deepOrangeAccent[400] , 120)
             ],
           ),
         ));
@@ -171,6 +63,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 }
+
 
 
 //Increasement of data and counter 

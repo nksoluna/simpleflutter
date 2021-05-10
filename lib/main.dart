@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Foodmenu.dart';
+//import 'Foodmenu.dart';
 import 'MoneyBox.dart';
 void main() {
   runApp(LabelOrtext());
@@ -22,16 +22,25 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<FoodMenu> menu = [
+  int number = 0 ;
+   @override
+
+  void initState() {
+  super.initState();
+  print("Test");
+  }
+  /*List<FoodMenu> menu = [
     FoodMenu("กะเพราไก่ไข่ดาว", "50", "assets/image/krapow.jpg"),
     FoodMenu("ผัดพริกไก่ไข่ดาว", "50", "assets/image/padprick.jpg"),
     FoodMenu("ส้มตำไทย", "40", "assets/image/papayasalad.jpg"),
     FoodMenu("ผัดไทย", "45", "assets/image/padthai.jpg")
   ];
   int counter = 0;
-
+*/
+ 
   @override
   Widget build(BuildContext context) {
+    print("Run build");
     return Scaffold(
         appBar: AppBar(
             title: Text(
@@ -48,20 +57,30 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height : 10) ,
               MoneyBox("รายจ่าย", 10000, Colors.redAccent[700] , 120) ,
               SizedBox(height : 10) ,
-              MoneyBox("ค้างชำระ", 0, Colors.deepOrangeAccent[400] , 120)
+              MoneyBox("ค้างชำระ", 0, Colors.deepOrangeAccent[400] , 120),
+              SizedBox(height : 10) ,
+              Text(number.toString(),style:TextStyle(fontSize : 30) , ) 
+             
             ],
-          ),
-        ));
+          ), 
+            
+        ),
+        floatingActionButton : FloatingActionButton(onPressed: () {
+              setState(() {
+                number++ ;
+              });
+            },
+            child : Icon(Icons.add),));
   }
 
-  void addNumber() {
+  /*void addNumber() {
     setState(() {
       counter++;
       if (counter >= 20) {
         counter = 0;
       }
     });
-  }
+  }*/
 }
 
 

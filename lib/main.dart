@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 //import 'Foodmenu.dart';
 import 'MoneyBox.dart';
+import 'package:http/http.dart' as http ;
+import 'ExchangeRate.dart';
 void main() {
   runApp(LabelOrtext());
 }
@@ -23,12 +25,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int number = 0 ;
+  ExchangeRate _dataFromAPI ;
    @override
 
   void initState() {
   super.initState();
-  print("Test");
+  getExchangeRate() ;
   }
+  Future <ExchangeRate> getExchangeRate() async {
+    var url = "http://api.exchangeratesapi.io/latest?access_key=bc3c91d239139eea7abdc48656683f0d&symbols=USD,GBP,THB" ;
+    var response = await http.get(url) ;
+    print("Call Exchange Rate with API") ;
+   _dataFromAPI =  exchangeRateFromJson(response.body) ;
+   return _dataFromAPI ;
+    
+
+  }
+  
   /*List<FoodMenu> menu = [
     FoodMenu("กะเพราไก่ไข่ดาว", "50", "assets/image/krapow.jpg"),
     FoodMenu("ผัดพริกไก่ไข่ดาว", "50", "assets/image/padprick.jpg"),
@@ -47,30 +60,43 @@ class _HomePageState extends State<HomePage> {
           "บัญชีของฉัน",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         )),
-        body: Padding(
+        body: FutureBuilder(
+          future: getExchangeRate() ,
+          builder: (BuildContext context , AsyncSnapshot<dynamic> snapshot ){
+            if(snapshot.connectionState == ConnectionState.done) { //get all API request 
+            var result = snapshot.data ;
+              return  Padding(
           padding: const EdgeInsets.fromLTRB(10,10,10, 0), // space from top and side
           child: Column(
             children: [
-              MoneyBox("ยอดคงเหลือ",15000 , Colors.orange, 150) ,
+
               SizedBox(height : 10) ,
-              MoneyBox("รายรับ", 25000, Colors.greenAccent[400] , 120) ,
+              MoneyBox("ยอดคงเหลือ",15000/result.rates["THB"] , Colors.orange, 150) ,
               SizedBox(height : 10) ,
-              MoneyBox("รายจ่าย", 10000, Colors.redAccent[700] , 120) ,
+              MoneyBox("รายรับ", 25000/result.rates["THB"], Colors.greenAccent[400] , 120) ,
               SizedBox(height : 10) ,
-              MoneyBox("ค้างชำระ", 0, Colors.deepOrangeAccent[400] , 120),
+              MoneyBox("รายจ่าย", 10000/result.rates["THB"], Colors.redAccent[700] , 120) ,
               SizedBox(height : 10) ,
-              Text(number.toString(),style:TextStyle(fontSize : 30) , ) 
+              MoneyBox("ค้างชำระ", 0/result.rates["THB"], Colors.deepOrangeAccent[400] , 120),
+              SizedBox(height : 10) ,
+              Text("สกุลเงิน " + result.base ,style: TextStyle(fontSize: 30 ),)
+              
+              
              
             ],
           ), 
             
+        );
+            }
+            return LinearProgressIndicator() ;
+           
+          },
+       
+           
+            
         ),
-        floatingActionButton : FloatingActionButton(onPressed: () {
-              setState(() {
-                number++ ;
-              });
-            },
-            child : Icon(Icons.add),));
+         
+    );
   }
 
   /*void addNumber() {

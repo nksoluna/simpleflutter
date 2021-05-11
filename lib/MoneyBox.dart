@@ -31,7 +31,7 @@ MoneyBox(this.title , this.amount , this.color , this.size) ;
                       ),
                       Expanded(
                         child: Text(
-                         '${NumberFormat("#,###.##").format(amount)}' + (" บาท"),
+                         '${NumberFormat("#,###.##").format(amount)}' + (" EUR"),
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 25,
